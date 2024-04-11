@@ -1,8 +1,0 @@
-import pygame 
-pygame.init()
-
-règle=pygame.image.load('/Users/nicolascastagni/Desktop/Jeu /Assets /CAA49E73-630D-4250-B5D7-691BA0B1F984_1_201_a.jpeg')
-
-class regle
-    def __init__(self)
-    photo_regle=
