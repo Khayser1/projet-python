@@ -36,6 +36,9 @@ ouvert = True #cette variable permet de definir pour le programme si la fenetre 
 
 #on crée la variable de mouvement de chaque image
 piece_to_move = None
+valid = 0
+valid1 = 0
+
 
 #on crée une liste contenant les coordonnées x des centres des rectangles de l'arche
 list_center_x = [453, 513, 573, 633, 693, 753, 813]
@@ -87,11 +90,9 @@ while ouvert:
         elif event.type == pygame.MOUSEBUTTONDOWN and pygame.Rect.collidepoint(elephant1.rect, pos_souris):
             elephant1.rect.collidepoint(event.pos)
             piece_to_move = "ele1"
-           
         elif event.type == pygame.MOUSEBUTTONDOWN and pygame.Rect.collidepoint(elephant2.rect, pos_souris):
             elephant2.rect.collidepoint(event.pos)
             piece_to_move = "ele2"
-            
         elif event.type == pygame.MOUSEBUTTONDOWN and pygame.Rect.collidepoint(girafe1.rect, pos_souris):
             girafe1.rect.collidepoint(event.pos)
             piece_to_move = "gir1"
@@ -116,12 +117,8 @@ while ouvert:
         elif event.type == pygame.MOUSEBUTTONDOWN and pygame.Rect.collidepoint(zebre2.rect, pos_souris):
             zebre2.rect.collidepoint(event.pos)
             piece_to_move = "zeb2"
-        
-        elif event.type==pygame.MOUSEBUTTONUP and pygame.Rect.collidepoint(elephant1.rect, pos_souris):
-            test1 = True
-        elif event.type==pygame.MOUSEBUTTONUP and pygame.Rect.collidepoint(elephant2.rect, pos_souris):
-            test2 = True
-         
+
+
         elif event.type == pygame.MOUSEMOTION and piece_to_move == "ele1":
             ele1_c1 = elephant1.rect1.center
             ele1_c2 = elephant1.rect2.center
@@ -130,51 +127,62 @@ while ouvert:
             elephant1.rect1.move_ip(event.rel)
             elephant1.rect2.move_ip(event.rel)
             elephant1.rect4.move_ip(event.rel)
+            valid += 1
         elif event.type == pygame.MOUSEMOTION and piece_to_move == "ele2":
             ele2_c2 = elephant2.rect2.center
             ele2_c4 = elephant2.rect4.center
             elephant2.rect.move_ip(event.rel)
             elephant2.rect2.move_ip(event.rel)
             elephant2.rect4.move_ip(event.rel)
+            valid =+ 1
         elif event.type == pygame.MOUSEMOTION and piece_to_move == "gir1":
             girafe1.rect.move_ip(event.rel)
             girafe1.rect2.move_ip(event.rel)
             girafe1.rect3.move_ip(event.rel)
             girafe1.rect4.move_ip(event.rel)
+            valid += 1
         elif event.type == pygame.MOUSEMOTION and piece_to_move == "gir2":
             girafe2.rect.move_ip(event.rel)
             girafe2.rect1.move_ip(event.rel)
             girafe2.rect2.move_ip(event.rel)
+            valid += 1
         elif event.type == pygame.MOUSEMOTION and piece_to_move == "lio1":
             lion1.rect.move_ip(event.rel)
             lion1.rect1.move_ip(event.rel)
             lion1.rect2.move_ip(event.rel)
             lion1.rect3.move_ip(event.rel)
+            valid += 1
         elif event.type == pygame.MOUSEMOTION and piece_to_move == "lio2":
             lion2.rect.move_ip(event.rel)
             lion2.rect2.move_ip(event.rel)
             lion2.rect4.move_ip(event.rel)
+            valid += 1
         elif event.type == pygame.MOUSEMOTION and piece_to_move == "hipo1":
             hipopo1.rect.move_ip(event.rel)
             hipopo1.rect2.move_ip(event.rel)
             hipopo1.rect4.move_ip(event.rel)
             hipopo1.rect5.move_ip(event.rel)
+            valid += 1
         elif event.type == pygame.MOUSEMOTION and piece_to_move == "hipo2":
             hipopo2.rect.move_ip(event.rel)
             hipopo2.rect2.move_ip(event.rel)
             hipopo2.rect4.move_ip(event.rel)
+            valid += 1
         elif event.type == pygame.MOUSEMOTION and piece_to_move == "zeb1":
             zebre1.rect.move_ip(event.rel)
             zebre1.rect1.move_ip(event.rel)
             zebre1.rect2.move_ip(event.rel)
+            valid += 1
         elif event.type == pygame.MOUSEMOTION and piece_to_move == "zeb2":
             zebre2.rect.move_ip(event.rel)
             zebre2.rect2.move_ip(event.rel)
             zebre2.rect4.move_ip(event.rel)
+            valid += 1
 
         elif event.type == pygame.MOUSEBUTTONUP:
             match piece_to_move:               
                 case "ele1":
+                    valid1 += 1
                     t1, i1, j1 = elephant1.test_rect1()
                     if t1:
                         t2, i2, j2 = elephant1.test_rect2()
@@ -186,26 +194,17 @@ while ouvert:
                                 elephant1.rect1.center == (i1,j1)
                                 elephant1.rect2.center == (i2,j2)
                                 elephant1.rect4.center == (i4,j4)
-
                                 
-                                
-                            """ #niveau 1
-                                if i1+30 == 483 and j1+40 == 265:
-                                   pass
+                                #lvl 1
+                                if elephant1.rect1.center == (453,305):
+                                    elephant1.valid = True
                                 else:
-                                    elephant1.rect.x = 25
-                                    elephant1.rect.y = 10
-                                    elephant1.rect1.x = elephant1.rect.x
-                                    elephant1.rect1.y = elephant1.rect.y
-                                    elephant1.rect2.x = elephant1.rect.x 
-                                    elephant1.rect2.y = elephant1.rect.y + 76
-                                    elephant1.rect4.x = elephant1.rect.x + 58
-                                    elephant1.rect4.y = elephant1.rect.y + 76
-                                #niveau2
-                                #if """
+                                    pass
+
                                 
 
                 case "ele2":
+                    valid1 += 1 
                     t2, i2, j2 = elephant2.test_rect2()
                     if t2:
                         t4, i4, j4 = elephant2.test_rect4()
@@ -215,6 +214,10 @@ while ouvert:
                             elephant2.rect2.center == (i2,j2)
                             elephant2.rect4.center == (i4,j4)
                             
+                            #lvl 1
+                            if elephant2.rect2.center == (513,305):
+                                elephant2.valid = True
+                            
                             
                 case "gir1":
                     t2, i2, j2 = girafe1.test_rect2()
@@ -222,7 +225,7 @@ while ouvert:
                     list_test_center.remove(girafe1.rect3)
                     list_test_center.remove(girafe1.rect4)
                     if t2 and pygame.Rect.collidelist(girafe1.rect2, list_test_center) == -1:
-                        t3,_,_ = girafe1.test_rect3()
+                        t3, i3, j3 = girafe1.test_rect3()
                         if t3 and pygame.Rect.collidelist(girafe1.rect3, list_test_center) == -1:
                             t4,_,_ = girafe1.test_rect4()
                             if t4 and pygame.Rect.collidelist(girafe1.rect4, list_test_center) == -1:                                
@@ -353,28 +356,17 @@ while ouvert:
                             list_test_center.append(zebre2.rect2)
                             list_test_center.append(zebre2.rect4)
             piece_to_move = None
-            
-        if event.type== pygame.MOUSEBUTTONUP and elephant1.rect2.colliderect(elephant2.rect2) and test1:
-                elephant1.rect.x = 25
-                elephant1.rect.y = 10
-                elephant1.rect1.x = elephant1.rect.x
-                elephant1.rect1.y = elephant1.rect.y
-                elephant1.rect2.x = elephant1.rect.x 
-                elephant1.rect2.y = elephant1.rect.y + 76
-                elephant1.rect4.x = elephant1.rect.x + 58
-                elephant1.rect4.y = elephant1.rect.y + 76
-                
-                print("ok")    
-               
-        if event.type==pygame.MOUSEBUTTONUP and elephant2.rect2.colliderect(elephant1.rect2) and test2:
-                elephant2.rect.x = 25
-                elephant2.rect.y = 10
-                elephant2.rect2.x = elephant2.rect.x 
-                elephant2.rect2.y = elephant2.rect.y + 76
-                elephant2.rect4.x = elephant2.rect.x + 58
-                elephant2.rect4.y = elephant2.rect.y + 76
-                print("ok2")   
-           
+        
+    #vérification des positions
+        if valid1 == 10 and elephant1.valid == False:
+            elephant1.rect.x = 25
+            elephant1.rect.y = 10
+            elephant1.rect1.center
+        elif valid1 == 10 and elephant2.valid == False:
+            elephant2.rect.x = 25
+            elephant2.rect.y = 170
+                    
+        print (valid1)
        
             
 

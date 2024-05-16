@@ -25,10 +25,4 @@ def barre_gauche(surface):
     pygame.draw.rect(surface, bar_couleur, bar_position)
     
     
-def test_position():
-    list_test_center = [elephant1.rect.center, elephant2.rect.center]
-    for rect in list_test_center:
-        if rect == (483,265):
-            return True
-        else:
-            return False
+valid_animal = [elephant1.valid, elephant2.valid]

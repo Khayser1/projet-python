@@ -18,7 +18,8 @@ class Animal(pygame.sprite.Sprite):
         self.rect4 = self.image.get_rect()
         self.rect5 = self.image.get_rect()
         self.creation_rect()
-        
+        self.valid = False
+            
 
     def creation_rect(self):
         if self.taille == (116,152):
@@ -111,5 +112,3 @@ class Animal(pygame.sprite.Sprite):
                 if abs(i - self.rect5.centerx) < 50 and abs(j - self.rect5.centery) < 70:
                     return True, i, j
         return False,None, None
-    
-    
