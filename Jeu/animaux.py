@@ -18,6 +18,7 @@ class Animal(pygame.sprite.Sprite):
         self.rect4 = self.image.get_rect()
         self.rect5 = self.image.get_rect()
         self.creation_rect()
+        self.valid=False
         
 
     def creation_rect(self):

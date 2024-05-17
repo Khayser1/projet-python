@@ -70,10 +70,11 @@ def play_screen_starter():
 
     #boucle tant que ouvert est vrai pour que le fenêtre reste ouvert 
     while ouvert:
-
+        valider =bouton(math.ceil(surface.get_width()/1.3),math.ceil(surface.get_height()/1.2),"valider",(255,255,255),(10,10,10),27,math.ceil(surface.get_width()/1.27),math.ceil(surface.get_height()/1.121))
+        
         #appliquer l'arriere plan de notre jeu car pygame.display.set_mode((500,300))genere une surface et pygame.image.load('assets/fond.png.avif') notre fond suffit de mettre le fond sur la surface
         surface.blit(Fond_image, (150,0))#blit permet de mettre notre image sur la surface 
-
+         
         clock.tick(30)
 
         barre_droite(surface)
@@ -81,6 +82,11 @@ def play_screen_starter():
 
         #appliquer l'arche avant les animaux puisqu'elle est en 'fond'
         surface.blit(arche, arche_rect)
+        
+        for boutton in [valider]:
+            
+            boutton.update(surface)
+            boutton.changement_couleur(surface)
 
         #appliquer les images d'animaux 
         surface.blit(elephant1.image, elephant1.rect)
@@ -93,6 +99,7 @@ def play_screen_starter():
         surface.blit(lion2.image, lion2.rect)
         surface.blit(zebre1.image, zebre1.rect)
         surface.blit(zebre2.image, zebre2.rect) 
+        
 
 
         #mettre à jour notre écran car là c'est fixe
@@ -109,6 +116,12 @@ def play_screen_starter():
             elif event.type == pygame.MOUSEBUTTONDOWN and pygame.Rect.collidepoint(elephant1.rect, pos_souris):
                 elephant1.rect.collidepoint(event.pos)
                 piece_to_move = "ele1"
+                print(elephant1.rect1.centerx,"1","test1")
+                print(elephant1.rect1.centery,"1")
+                print(elephant1.rect2.centerx,"2")
+                print(elephant1.rect2.centery,"2")
+                print(elephant1.rect4.centerx,"4")
+                print(elephant1.rect4.centery,"4")                
             elif event.type == pygame.MOUSEBUTTONDOWN and pygame.Rect.collidepoint(elephant2.rect, pos_souris):
                 elephant2.rect.collidepoint(event.pos)
                 piece_to_move = "ele2"
@@ -139,16 +152,17 @@ def play_screen_starter():
 
 
             elif event.type == pygame.MOUSEMOTION and piece_to_move == "ele1":
-                ele1_c1 = elephant1.rect1.center
-                ele1_c2 = elephant1.rect2.center
-                ele1_c4 = elephant1.rect4.center
                 elephant1.rect.move_ip(event.rel)
                 elephant1.rect1.move_ip(event.rel)
                 elephant1.rect2.move_ip(event.rel)
                 elephant1.rect4.move_ip(event.rel)
+                print(elephant1.rect1.centerx,"1","test2")
+                print(elephant1.rect1.centery,"1")
+                print(elephant1.rect2.centerx,"2")
+                print(elephant1.rect2.centery,"2")
+                print(elephant1.rect4.centerx,"4")
+                print(elephant1.rect4.centery,"4")      
             elif event.type == pygame.MOUSEMOTION and piece_to_move == "ele2":
-                ele2_c2 = elephant2.rect2.center
-                ele2_c4 = elephant2.rect4.center
                 elephant2.rect.move_ip(event.rel)
                 elephant2.rect2.move_ip(event.rel)
                 elephant2.rect4.move_ip(event.rel)
@@ -220,7 +234,7 @@ def play_screen_starter():
                         if t2:
                             t3,i3,j3 = girafe1.test_rect3()
                             if t3 :
-                                t4,i4,j4_ = girafe1.test_rect4()
+                                t4,i4,j4= girafe1.test_rect4()
                                 if t4:                                
                                     girafe1.rect.centerx = i2+90
                                     girafe1.rect.centery = j2-40
@@ -253,98 +267,87 @@ def play_screen_starter():
                                     lion1.rect2.center==(i2,j2)
                                     lion1.rect3.center==(i3,j3)
                                     
-                        else:
-                            lion1.rect.x = 880
-                            lion1.rect.y = 10
-                        list_test_center.append(lion1.rect1)
-                        list_test_center.append(lion1.rect2)
-                        list_test_center.append(lion1.rect3)
+                
 
                     case "lio2":
                         t2, i2, j2 = lion2.test_rect2()
-                        list_test_center.remove(lion2.rect2)
-                        list_test_center.remove(lion2.rect4)
-                        if t2 and pygame.Rect.collidelist(lion2.rect2, list_test_center) == -1:
-                            t4,_,_ = lion2.test_rect4()
-                            if t4 and pygame.Rect.collidelist(lion2.rect4, list_test_center) == -1:
+                        
+                        if t2 :
+                            t4,i4,j4 = lion2.test_rect4()
+                            if t4 :
                                 lion2.rect.centerx = i2+90
                                 lion2.rect.centery = j2
-                        else:
-                            lion2.rect.x = 1010
-                            lion2.rect.y = 10
-                        list_test_center.append(lion2.rect2)
-                        list_test_center.append(lion2.rect4)
+                                lion2.rect2.center==(i2,j2)
+                                lion2.rect4.center==(i4,j4)
+                    
 
                     case "hipo1":
                         t2, i2, j2 = hipopo1.test_rect2()
                         if t2:
-                            t4,_,_ = hipopo1.test_rect4()
+                            t4,i4,j4 = hipopo1.test_rect4()
                             if t4:
-                                t5,_,_ = hipopo1.test_rect5()
+                                t5,i5,j5 = hipopo1.test_rect5()
                                 if t5:
-                                    del list_test_center[0]
-                                    del list_test_center[0]
-                                    del list_test_center[0]
+                                    
                                     hipopo1.rect.centerx = i2+60
                                     hipopo1.rect.centery = j2
-                                    if hipopo1.rect2.collidelist(list_test_center) == -1 and hipopo1.rect4.collidelist(list_test_center) == -1 and hipopo1.rect5.collidelist(list_test_center) == -1:
-                                        pass
-                                    else:
-                                        hipopo1.rect.x = 620
-                                        hipopo1.rect.y = 10
-                                    list_test_center.append(hipopo1.rect2)
-                                    list_test_center.append(hipopo1.rect4)
-                                    list_test_center.append(hipopo1.rect5)
+                                    hipopo1.rect2.center==(i2,j2)
+                                    hipopo1.rect4.center==(i4,j4)
+                                    hipopo1.rect5.center==(i5,j5)
+                                    
                     case "hipo2":
                         t2, i2, j2 = hipopo2.test_rect2()
                         if t2:
-                            t4,_,_ = hipopo2.test_rect4()
+                            t4,i4,j4 = hipopo2.test_rect4()
                             if t4:
-                                del list_test_center[0]
-                                del list_test_center[0]
                                 hipopo2.rect.centerx = i2+90
                                 hipopo2.rect.centery = j2
-                                if hipopo2.rect2.collidelist(list_test_center) == -1 and hipopo2.rect4.collidelist(list_test_center) == -1:
-                                    pass
-                                else:
-                                    hipopo2.rect.x = 750
-                                    hipopo2.rect.y = 10
-                                list_test_center.append(hipopo2.rect2)
-                                list_test_center.append(hipopo2.rect4)
+                                hipopo2.rect2.center==(i2,j2)
+                                hipopo2.rect4.center==(i4,j4)
+                               
                     case "zeb1":
                         t1, i1, j1 = zebre1.test_rect1()
                         if t1:
-                            t2,_,_ = zebre1.test_rect2()
+                            t2,i2,j2 = zebre1.test_rect2()
                             if t2:
-                                del list_test_center[0]
-                                del list_test_center[0]
+                                
                                 zebre1.rect.centerx = i1
                                 zebre1.rect.centery = j1+120
-                                if zebre1.rect1.collidelist(list_test_center) == -1 and zebre1.rect2.collidelist(list_test_center) == -1:
-                                    pass
-                                else:
-                                    zebre1.rect.x = 460
-                                    zebre1.rect.y = 230
-                                list_test_center.append(zebre1.rect1)
-                                list_test_center.append(zebre1.rect2)
+                                zebre1.rect1.center==(i1,j1)
+                                zebre1.rect2.center==(i2,j2)
+                                
                     case "zeb2":
                         t2, i2, j2 = zebre2.test_rect2()
                         if t2:
-                            t4,_,_ = zebre2.test_rect4()
+                            t4,i4,j4 = zebre2.test_rect4()
                             if t4:
-                                del list_test_center[0]
-                                del list_test_center[0]
                                 zebre2.rect.centerx = i2+90
                                 zebre2.rect.centery = j2
-                                if zebre2.rect2.collidelist(list_test_center) == -1 and zebre2.rect4.collidelist(list_test_center) == -1:
-                                    pass
-                                else:
-                                    zebre2.rect.x = 590
-                                    zebre2.rect.y = 230
-                                list_test_center.append(zebre2.rect2)
-                                list_test_center.append(zebre2.rect4)
+                                zebre2.rect2.center==(i2,j2)
+                                zebre2.rect4.center==(i4,j4)
+                                
                 piece_to_move = None
-
+            elif event.type==pygame.MOUSEBUTTONDOWN:
+                    if valider.bouton_rect.collidepoint(event.pos):
+                        lvl1=level1()
+                        if lvl1 == True:
+                            win()
+                        else:
+                            r1=retour()
+                            if r1==elephant1.valid:
+                                elephant1.rect.x=25
+                                elephant1.rect.y=10
+                                elephant1.rect1.centerx=56
+                                elephant1.rect1.centery=52
+                                elephant1.rect2.centerx=56
+                                elephant1.rect2.centery=124
+                                elephant1.rect4.centerx=112
+                                elephant1.rect4.centery=124
+                                
+                            elif r1==elephant2.valid:
+                                elephant2.rect.x=25
+                                elephant2.rect.y=170
+                                
 
         surface.fill((100,100,100))
         #surface.blit(elephant1.image,elephant1.rect)
@@ -485,7 +488,7 @@ def menu():
     text_regle_bouton_rect=text_regle_bouton.get_rect()
     text_regle_bouton_rect.x= math.ceil(surface.get_width()/2.4)
     text_regle_bouton_rect.y=math.ceil(surface.get_height()/1.28)
-    musique.play()
+    #musique.play()
     while Ouvert:
         
         surface.blit(fond_menu, (0,0))

@@ -1,0 +1,20 @@
+import pygame
+ 
+pygame.init()
+pygame.font.init()
+ 
+RUNNING = True
+
+fenetre=pygame.display.set_caption('Arche de noé')
+surface=pygame.display.set_mode(500,300)
+
+def menu():
+    rect = pygame.draw.rect(
+        fenetre,
+        (255,0,0),
+        pygame.Rect(100, 200, 100, 100))
+ 
+    text = myfont.render('ButtonA', False, (255,255,255))
+    fenetre.blit(text, (100,200))
+ 
+    gerer_mouse_menu(rect)
